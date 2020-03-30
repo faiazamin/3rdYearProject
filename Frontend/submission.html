@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>{Title}</title>
+  <link rel="icon" type="image/png" href="ASSETS/IMAGE/logo.png" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -26,6 +27,25 @@
   <!-- Navigation end -->
   <!-- Midbody start -->
   <div class="container">
+    <h3>Submission</h3><br>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Submission</th>
+            <th>Problem ID</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"> <!-- Template code -->
+          {% for item in data %}
+          <td><a id="submission">{{item.submissionid}}</a></td>
+          <td><a id="problem">{{item.problemid}}</a></td>
+          <td>{{item.verdict}}</td>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
   <!-- Midbody end -->
   <!-- Footer start -->

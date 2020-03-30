@@ -3,10 +3,8 @@ Pages:
 2. Practice
 3. sign in
 4. sign up
-5. about
-6. submit
-7. problem
-8. submission
-9. code
-10. rank
-11. profile
+5. submit
+6. problem
+7. submission
+8. code
+9. profile

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>{Title}</title>
+  <link rel="icon" type="image/png" href="ASSETS/IMAGE/logo.png" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -25,7 +26,16 @@
   </nav>
   <!-- Navigation end -->
   <!-- Midbody start -->
-  <div class="container">
+  <div class="container" align="center">
+    <table class="table">
+      <tr>
+        <td>{{data.solutionid}}</td>
+        <td>{{data.problemid}}</td>
+        <td>{{data.problemname}}</td>
+        <td>{{data.verdict}}</td>
+      </tr>
+    </table><br>
+    <textarea style="width: 100%; height: 500px;" id="code" disabled>{{data.code}}</textarea>
   </div>
   <!-- Midbody end -->
   <!-- Footer start -->
