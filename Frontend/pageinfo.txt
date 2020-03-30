@@ -1,0 +1,12 @@
+Pages:
+1. index
+2. Practice
+3. sign in
+4. sign up
+5. about
+6. submit
+7. problem
+8. submission
+9. code
+10. rank
+11. profile
