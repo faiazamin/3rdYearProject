@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style type="text/css">.hide{visibility: hidden;}</style>
 </head>
 <body>
   <!-- Navigation start -->
@@ -20,7 +21,7 @@
         <div class="container">
         <span > <button class="btn btn-primary" id="navbtn_practice">Practice</button> </span>
         <span> <button class="btn btn-primary" id="navbtn_profile">Profile</button> </span>
-        <span> <button class="btn btn-primary" id="navbtn_signin">Sign out</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_signout">Sign out</button> </span>
       </div>
     </div>
   </nav>
@@ -31,7 +32,7 @@
     <form>
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input id="email" type="text" class="form-control" name="user" placeholder="Username">
+        <input id="email" type="text" class="form-control" name="user" placeholder="Email">
       </div>
 
       <br>
@@ -44,6 +45,10 @@
     <br>
     <button class="btn btn-primary" id="signin">Sign in</button>
     <button class="btn btn-warning" id="forgot_pass">Forgot password</button>
+    <br><br>
+    <div class="alert alert-warning alert-dismissible hide" id="alert">
+      <strong id="alerttext"></strong>
+    </div>
   </div>
   <!-- Midbody end -->
   <!-- Footer start -->
@@ -56,4 +61,5 @@
   </div>
   <!-- Footer end -->
 </body>
+<script type="text/javascript" src="ASSETS/JS/signin.js"></script>
 </html>
