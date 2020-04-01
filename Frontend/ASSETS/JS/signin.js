@@ -9,8 +9,8 @@ document.getElementById("navbtn_practice").addEventListener("click", noReturn =>
 	window.location = "practice.html"; // temporary
 });
 
-document.getElementById("navbtn_signout").addEventListener("click", noReturn => {
-	
+document.getElementById("navbtn_signup").addEventListener("click", noReturn => {
+	window.location = "signup.html";
 });
 
 // check for log in
@@ -43,6 +43,7 @@ document.getElementById("forgot_pass").addEventListener("click", noReturn => {
 	let email = document.getElementById("email").value.trim();
 	if(email == "") showAlert("Email field is necessary.");
 	else {
+		hideAlert();
 		// go for it
 	}
 });

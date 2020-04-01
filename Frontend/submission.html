@@ -39,23 +39,16 @@
         </thead>
         <tbody id="tbody"> <!-- Template code -->
           {% for item in data %}
-          <td><a id="submission">{{item.submissionid}}</a></td>
-          <td><a id="problem">{{item.problemid}}</a></td>
-          <td>{{item.verdict}}</td>
+          <tr>
+            <td><a id="submission">{{item.submissionid}}</a></td>
+            <td><a id="problem">{{item.problemid}}</a></td>
+            <td>{{item.verdict}}</td>
+          </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
   </div>
   <!-- Midbody end -->
-  <!-- Footer start -->
-  <div class="container" style="padding-top: 3px; position: absolute;height: 20px;margin-bottom: 0;bottom: 0;width: 100%; font-size: 12px;" align="center">
-    <hr>
-    <i>{TITLE}<br>
-    Developped by Rahat Hossain and Faiaz Amin Khan
-    <br>Under the supervision of Dr. Saifuddin Md. Tareeq</i><br>
-    <a href="">Click for more information.</a>
-  </div>
-  <!-- Footer end -->
 </body>
 </html>

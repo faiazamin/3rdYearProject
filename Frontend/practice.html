@@ -20,23 +20,38 @@
         <div class="container">
         <span > <button class="btn btn-primary" id="navbtn_practice">Practice</button> </span>
         <span> <button class="btn btn-primary" id="navbtn_profile">Profile</button> </span>
-        <span> <button class="btn btn-primary" id="navbtn_signin">Sign out</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_signout">Sign out</button> </span>
       </div>
     </div>
   </nav>
   <!-- Navigation end -->
   <!-- Midbody start -->
   <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Problem ID</th>
+          <th>Problem Name</th>
+          <th>Tags</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in data %}
+        <tr>
+          <td><a class="problemid">{{item.problemid}}</a></td>
+          <td><a class="problemname">{{item.name}}</a></td>
+          <td>{{item.tag}}</td>
+        </tr>
+        <tr>
+          <td><a class="problemid">{{item.problemid}}</a></td>
+          <td><a class="problemname">{{item.name}}</a></td>
+          <td>{{item.tag}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
   <!-- Midbody end -->
-  <!-- Footer start -->
-  <div class="container" style="padding-top: 3px; position: absolute;height: 20px;margin-bottom: 0;bottom: 0;width: 100%; font-size: 12px;" align="center">
-    <hr>
-    <i>{TITLE}<br>
-    Developped by Rahat Hossain and Faiaz Amin Khan
-    <br>Under the supervision of Dr. Saifuddin Md. Tareeq</i><br>
-    <a href="">Click for more information.</a>
-  </div>
-  <!-- Footer end -->
 </body>
+<script type="text/javascript" src="ASSETS/JS/practice.js"></script>
 </html>
