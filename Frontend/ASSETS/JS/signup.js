@@ -1,23 +1,5 @@
 
-// navigation button part
 
-document.getElementById("navbtn_profile").addEventListener("click", noReturn => {
-	window.location = "profile.html"; // temporary
-});
-
-document.getElementById("navbtn_practice").addEventListener("click", noReturn => {
-	window.location = "practice.html"; // temporary
-});
-
-document.getElementById("navbtn_signin").addEventListener("click", noReturn => {
-	window.location = "signin.html"; // temoporary
-	console.log("click");
-});
-
-// check for log in
-
-
-// sign up
 document.getElementById("signup").addEventListener("click", noReturn => {
 	let name = document.getElementById("name").value.trim();
 	let email = document.getElementById("email").value.trim();
@@ -31,6 +13,7 @@ document.getElementById("signup").addEventListener("click", noReturn => {
 	}else {
 		hideAlert();
 		// sign up
+		signup(email, pass, inst);
 	}
 });
 
@@ -43,4 +26,18 @@ function showAlert(text){
 function hideAlert(){
 	document.getElementById("alert").classList.add("hide");
 	document.getElementById("alerttext").innerHTML = "";
+}
+
+document.getElementById("name").addEventListener("keypress", hideAlert);
+document.getElementById("email").addEventListener("keypress", hideAlert);
+document.getElementById("inst").addEventListener("keypress", hideAlert);
+document.getElementById("pass").addEventListener("keypress", hideAlert);
+document.getElementById("conpass").addEventListener("keypress", hideAlert);
+
+function signup(email, pass, inst){
+
+}
+
+function success(){
+	document.getElementById("modalactivate").click();
 }

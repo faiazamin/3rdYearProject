@@ -14,13 +14,13 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <img class="navbar-brand" href="#"><img src="ASSETS/IMAGE/logo.png" height="50px"></img></img>
+        <img class="navbar-brand" id="logo" src="ASSETS/IMAGE/logo.png" height="50px"></img>
       </div>
       <div class="nav navbar-nav" align="right">
         <div class="container">
         <span > <button class="btn btn-primary" id="navbtn_practice">Practice</button> </span>
         <span> <button class="btn btn-primary" id="navbtn_profile">Profile</button> </span>
-        <span> <button class="btn btn-primary" id="navbtn_signin">Sign out</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_signout">Sign out</button> </span>
       </div>
     </div>
   </nav>
@@ -40,8 +40,9 @@
         <tbody id="tbody"> <!-- Template code -->
           {% for item in data %}
           <tr>
-            <td><a id="submission">{{item.submissionid}}</a></td>
-            <td><a id="problem">{{item.problemid}}</a></td>
+            <td>{{item.submissionid}}</td>
+            <td><a class="problemid">{{item.problemid}}</a></td>
+            <td><a class="problemname">{{item.name}}</a></td>
             <td>{{item.verdict}}</td>
           </tr>
           {% endfor %}
@@ -51,4 +52,7 @@
   </div>
   <!-- Midbody end -->
 </body>
+<script type="text/javascript" src="ASSETS/JS/auth.js"></script>
+<script type="text/javascript" src="ASSETS/JS/nav.js"></script>
+<script type="text/javascript" src="ASSETS/JS/practice.js"></script>
 </html>

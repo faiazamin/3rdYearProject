@@ -1,22 +1,5 @@
 
-// navigation button part
 
-document.getElementById("navbtn_profile").addEventListener("click", noReturn => {
-	window.location = "profile.html"; // temporary
-});
-
-document.getElementById("navbtn_practice").addEventListener("click", noReturn => {
-	window.location = "practice.html"; // temporary
-});
-
-document.getElementById("navbtn_signup").addEventListener("click", noReturn => {
-	window.location = "signup.html";
-});
-
-// check for log in
-
-
-// sign in
 document.getElementById("signin").addEventListener("click", noReturn => {
 	let email = document.getElementById("email").value.trim();
 	let pass = document.getElementById("pass").value.trim();
@@ -24,9 +7,13 @@ document.getElementById("signin").addEventListener("click", noReturn => {
 		showAlert("Wrong inputs.")
 	} else {
 		hideAlert();
-		// sign in try
+		signin(email, pass);
 	}
 });
+
+document.getElementById("email").addEventListener("keypress", hideAlert);
+
+document.getElementById("pass").addEventListener("keypress", hideAlert);
 
 function showAlert(text){
 	document.getElementById("alert").classList.remove("hide");
@@ -45,5 +32,14 @@ document.getElementById("forgot_pass").addEventListener("click", noReturn => {
 	else {
 		hideAlert();
 		// go for it
+		//forgotPassSuccess();
 	}
 });
+
+function forgotPassSuccess(){
+	document.getElementById("modalactivate").click();
+}
+
+function signin(email, pass){
+
+}

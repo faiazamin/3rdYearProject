@@ -14,13 +14,13 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <img class="navbar-brand" href="#"><img src="ASSETS/IMAGE/logo.png" height="50px"></img></img>
+        <img class="navbar-brand" id="logo" src="ASSETS/IMAGE/logo.png" height="50px"></img>
       </div>
       <div class="nav navbar-nav" align="right">
         <div class="container">
         <span > <button class="btn btn-primary" id="navbtn_practice">Practice</button> </span>
         <span> <button class="btn btn-primary" id="navbtn_profile">Profile</button> </span>
-        <span> <button class="btn btn-primary" id="navbtn_signin">Sign out</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_signout">Sign out</button> </span>
       </div>
     </div>
   </nav>
@@ -44,7 +44,8 @@
         <td>{{data.memorylimit}}</td>
       </tr>
     </table>
-    <button class="btn btn-primary" id="submit">Submit</button>
+    <button class="btn btn-primary" id="problem_submit">Submit</button>
+    <br> <br>
     <div class="container container-fluid" id="problem">
       <object data="ASSETS/1000.pdf" type="application/pdf" style="min-height:100vh;width:100%">
         <p>It appears you don't have a PDF plugin for this browser.
@@ -54,14 +55,7 @@
     </div>
   </div>
   <!-- Midbody end -->
-  <!-- Footer start -->
-  <div class="container" style="padding-top: 3px; position: absolute;height: 20px;margin-bottom: 0;bottom: 0;width: 100%; font-size: 12px;" align="center">
-    <hr>
-    <i>{TITLE}<br>
-    Developped by Rahat Hossain and Faiaz Amin Khan
-    <br>Under the supervision of Dr. Saifuddin Md. Tareeq</i><br>
-    <a href="">Click for more information.</a>
-  </div>
-  <!-- Footer end -->
 </body>
+<script type="text/javascript" src="ASSETS/JS/auth.js"></script>
+<script type="text/javascript" src="ASSETS/JS/nav.js"></script>
 </html>

@@ -1,22 +1,5 @@
 
-// navigation button part
 
-document.getElementById("navbtn_profile").addEventListener("click", noReturn => {
-	window.location = "profile.html"; // temporary
-});
-
-document.getElementById("navbtn_practice").addEventListener("click", noReturn => {
-	window.location = "practice.html"; // temporary
-});
-
-document.getElementById("navbtn_signout").addEventListener("click", noReturn => {
-	// sign out
-});
-
-// check for log in
-
-
-// problem click
 var allId = document.getElementsByClassName("problemid");
 var allName = document.getElementsByClassName("problemname");
 //console.log(all);
