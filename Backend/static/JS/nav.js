@@ -15,39 +15,38 @@ let problem_submit = document.getElementById("problem_submit");
 
 function extend(){
 	let now = isSignedIn();
-	console.log(now);
 	if(now) return "?u=" + now;
 	return "";
 }
 
 if(nav_logo !== null){
 	nav_logo.addEventListener("click", noReturn => {
-		window.location = "index.html" + extend();
+		window.location = "/";
 	});
 }
 
 if(nav_practice !== null){
 	nav_practice.addEventListener("click", noReturn => {
-		window.location = "practice.html" + extend();
+		window.location = "practice/" + extend();
 	});
 }
 
 if(nav_profile !== null){
 	nav_profile.addEventListener("click", noReturn => {
-		window.location = "profile.html" + extend();
+		window.location = "profile/" + extend();
 	});
 }
 
 if(nav_signin !== null){
 	nav_signin.addEventListener("click", noReturn => {
-		window.location = "signin.html" + extend();
+		window.location = "signin/" + extend();
 	});
 }
 
 if(nav_signout !== null){
 	nav_signout.addEventListener("click", noReturn => {
 		signOut();
-		window.location = "index.html" + extend();
+		window.location = "index/" + extend();
 	});
 }
 

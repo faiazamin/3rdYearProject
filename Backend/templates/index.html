@@ -4,11 +4,11 @@
 <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
-<script type="text/javascript" src="ASSETS/JS/auth.js"></script>
+<script type="text/javascript" src="{{url_for('static',filename='JS/auth.js')}}"></script>
 
 <head>
-  <title>{Title}</title>
-  <link rel="icon" type="image/png" href="ASSETS/IMAGE/logo.png" />
+  <title>{{title}}</title>
+  <link rel="icon" type="image/png" src="{{ url_for('static', filename='IMAGE/logo.png') }}" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -20,7 +20,7 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <img class="navbar-brand" id="logo" src="ASSETS/IMAGE/logo.png"></img>
+        <img class="navbar-brand" id="logo" src="{{ url_for('static', filename='IMAGE/logo.png') }}" ></img>
       </div>
       <div class="nav navbar-nav" align="right">
         <div class="container">
@@ -35,7 +35,7 @@
   <!-- Midbody start -->
   <div class="container">
     <div class="container" align="center">
-      <h1>{title}</h1>
+      <h1>{{title}}</h1>
     </div>
     <!-- Slider -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -50,19 +50,19 @@
       <!-- Wrapper for slides -->
       <div class="carousel-inner">
         <div class="item active">
-          <img src="ASSETS/IMAGE/1.jpeg" alt="Let's code">
+          <img src="{{ url_for('static', filename='IMAGE/1.jpeg') }}">
         </div>
 
         <div class="item">
-          <img src="ASSETS/IMAGE/2.png" alt="C/C++">
+          <img src="{{ url_for('static', filename='IMAGE/2.png') }}" alt="C/C++">
         </div>
 
         <div class="item">
-          <img src="ASSETS/IMAGE/3.jpg" alt="Python">
+          <img src="{{ url_for('static', filename='IMAGE/3.jpg') }}" alt="Python">
         </div>
 
         <div class="item">
-          <img src="ASSETS/IMAGE/4.jpg" alt="69%">
+          <img src="{{ url_for('static', filename='IMAGE/4.jpg') }}" alt="69%">
         </div>
       </div>
 
@@ -86,12 +86,11 @@
   <!-- Footer start -->
   <div class="container" style="padding-top: 3px; position: absolute;height: 20px;margin-bottom: 0;bottom: 0;width: 100%; font-size: 12px;" align="center">
     <hr>
-    <i>{TITLE}<br>
+    <i>{{title}}<br>
     Developped by Rahat Hossain and Faiaz Amin Khan
     <br>Under the supervision of Dr. Saifuddin Md. Tareeq</i><br>
-    <a href="">Click for more information.</a>
   </div>
   <!-- Footer end -->
 </body>
-<script type="text/javascript" src="ASSETS/JS/nav.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/nav.js') }}"></script>
 </html>
