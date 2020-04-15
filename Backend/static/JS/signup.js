@@ -34,17 +34,7 @@ document.getElementById("pass").addEventListener("keypress", hideAlert);
 document.getElementById("conpass").addEventListener("keypress", hideAlert);
 
 function signup(email, pass, name, inst){
-	firebase.auth().createUserWithEmailAndPassword(email, pass).then(noReturn => {
-		let obj = {"name" : name, "instritution" : inst, "email" : email};
-		firebase.database().ref("user/" + firebase.auth().currentUser.uid).set(obj);
-		firebase.auth().currentUser.sendEmailVerification().then(function() {
-			success();
-		}).catch(function(error) {
-			showAlert(error.message);
-		});
-	}).catch(function(error) {
-  	showAlert(error.message);
-	});
+	
 }
 
 function success(){

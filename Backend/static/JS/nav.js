@@ -13,12 +13,6 @@ let home_signin = document.getElementById("navbtn_signin2");
 let home_signup = document.getElementById("navbtn_signup2");
 let problem_submit = document.getElementById("problem_submit");
 
-function extend(){
-	let now = isSignedIn();
-	if(now) return "?u=" + now;
-	return "";
-}
-
 if(nav_logo !== null){
 	nav_logo.addEventListener("click", noReturn => {
 		window.location = "/";
@@ -27,50 +21,50 @@ if(nav_logo !== null){
 
 if(nav_practice !== null){
 	nav_practice.addEventListener("click", noReturn => {
-		window.location = "practice/" + extend();
+		window.location = "/practice"  ;
 	});
 }
 
 if(nav_profile !== null){
 	nav_profile.addEventListener("click", noReturn => {
-		window.location = "profile/" + extend();
+		window.location = "/profile" ;
 	});
 }
 
 if(nav_signin !== null){
 	nav_signin.addEventListener("click", noReturn => {
-		window.location = "signin/" + extend();
+		window.location = "/signin"  ;
 	});
 }
 
 if(nav_signout !== null){
 	nav_signout.addEventListener("click", noReturn => {
 		signOut();
-		window.location = "index/" + extend();
+		window.location = "/index"  ;
 	});
 }
 
 if(nav_signup !== null){
 	nav_signup.addEventListener("click", noReturn => {
-		window.location = "signup.html" + extend();
+		window.location = "/signup"  ;
 	});
 }
 
 if(home_signin !== null){
 	home_signin.addEventListener("click", noReturn => {
-		window.location = "signin.html" + extend();
+		window.location = "/signin"  ;
 	});
 }
 
 
 if(home_signup !== null){
 	home_signup.addEventListener("click", noReturn => {
-		window.location = "signup.html" + '/' + extend();
+		window.location = "/signup"  ;
 	});
 }
 
 if(problem_submit !== null){
 	problem_submit.addEventListener("click", noReturn => {
-		window.location = "submit.html" + '/' + extend();
+		window.location = "/submit"  ;
 	});
 }

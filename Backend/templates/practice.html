@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{Title}</title>
-  <link rel="icon" type="image/png" href="ASSETS/IMAGE/logo.png" />
+  <title>{{title}}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='IMAGE/logo.png') }}" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -14,7 +14,7 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <img class="navbar-brand" id="logo" src="ASSETS/IMAGE/logo.png" height="50px"></img>
+        <img class="navbar-brand" id="logo"  src="{{ url_for('static', filename='IMAGE/logo.png') }}"  height="50px"></img>
       </div>
       <div class="nav navbar-nav" align="right">
         <div class="container">
@@ -30,21 +30,18 @@
     <table class="table">
       <thead>
         <tr>
+          <th></th>
           <th>Problem ID</th>
           <th>Problem Name</th>
-          <th>Tags</th>
+          <th>Tag</th>
         </tr>
       </thead>
       <tbody>
         {% for item in data %}
         <tr>
-          <td><a class="problemid">{{item.problemid}}</a></td>
-          <td><a class="problemname">{{item.name}}</a></td>
-          <td>{{item.tag}}</td>
-        </tr>
-        <tr>
-          <td><a class="problemid">{{item.problemid}}</a></td>
-          <td><a class="problemname">{{item.name}}</a></td>
+          <td>{{item.number}}</td>
+          <td><a class="problemid" href="{{url_for('problem_page', problemid=item.problemid)}}">{{item.problemid}}</a></td>
+          <td><a class="problemname"href="{{url_for('problem_page', problemid=item.problemid)}}">{{item.name}}</a></td>
           <td>{{item.tag}}</td>
         </tr>
         {% endfor %}
@@ -53,10 +50,5 @@
   </div>
   <!-- Midbody end -->
 </body>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
-<script type="text/javascript" src="ASSETS/JS/auth.js"></script>
-<script type="text/javascript" src="ASSETS/JS/nav.js"></script>
-<script type="text/javascript" src="ASSETS/JS/practice.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/nav.js') }}"></script>
 </html>
