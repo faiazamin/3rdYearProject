@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, make_response
-
+from faiaz import
 
 app = Flask(__name__)
 TITLE = "ROJ"
@@ -66,15 +66,17 @@ def submission_page():
 	return 'sumbission'
 
 # sign up page
-@app.route('/signup')
+@app.route('/signup', methods=["GET", "POST"])
 def signup_page():
 	'''
 	Unauthorized must
 	GET and POST METHOD
 	'''
-	return render_template('signup.html', title=TITLE)
-
-
+	if request.method == 'GET':
+		return render_template('signup.html', title=TITLE)
+	else:
+		print(request.form)
+		return "fuck"
 
 
 if __name__ == "__main__":

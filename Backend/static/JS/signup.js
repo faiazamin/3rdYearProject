@@ -34,7 +34,24 @@ document.getElementById("pass").addEventListener("keypress", hideAlert);
 document.getElementById("conpass").addEventListener("keypress", hideAlert);
 
 function signup(email, pass, name, inst){
-	
+	data = {
+		email: email,
+		pass: pass,
+		name: name,
+		instritution: inst
+	}
+	console.log(data)
+	/*fetch('/signup', {
+    method: 'POST',
+    body: data
+  })
+  .then(response => console.log(response))
+  .catch(error => {
+    console.error(error)
+  })*/
+  $.post("/signup", data, response => {
+  	console.log(response)
+  });
 }
 
 function success(){
