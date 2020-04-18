@@ -105,13 +105,13 @@ def all_problem(email):
     return arrayDictionary
 
 
-def updatTried( problemid ):
+def updateTried( problemid ):
     parameter = (problemid,)
     cursor.execute('UPDATE problems SET tried = tried + 1 WHERE problemid = ?',parameter)
     conn.commit()
 
 
-def updatTried( problemid ):
+def updateSolved( problemid ):
     parameter = (problemid,)
     cursor.execute('UPDATE problems SET solved = solved + 1 WHERE problemid = ?',parameter)
     conn.commit()
