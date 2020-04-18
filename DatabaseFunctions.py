@@ -138,11 +138,13 @@ def all_problem(email):
         ++count
     return arrayDictionary
 
+
 # This function increment the tried field value by 1 for a particular problem
 def updateTried(problemid):
     parameter = (problemid,)
     cursor.execute('UPDATE problems SET tried = tried + 1 WHERE problemid = ?', parameter)
     conn.commit()
+
 
 # This function increment the solved field value by 1 for a particular problem
 def updateSolved(problemid):
