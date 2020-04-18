@@ -103,3 +103,15 @@ def all_problem(email):
 
         ++count
     return arrayDictionary
+
+
+def updatTried( problemid ):
+    parameter = (problemid,)
+    cursor.execute('UPDATE problems SET tried = tried + 1 WHERE problemid = ?',parameter)
+    conn.commit()
+
+
+def updatTried( problemid ):
+    parameter = (problemid,)
+    cursor.execute('UPDATE problems SET solved = solved + 1 WHERE problemid = ?',parameter)
+    conn.commit()
