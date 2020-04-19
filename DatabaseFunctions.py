@@ -43,7 +43,7 @@ def signin(email, password):
     rtnMessage = cursor.fetchone()
     conn.commit()
     conn.close()
-    if rtnMessage == 1:
+    if rtnMessage[0] == 1:
         return email
     else:
         return None
