@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{Title}</title>
-  <link rel="icon" type="image/png" href="ASSETS/IMAGE/logo.png" />
+  <title>{{title}}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='IMAGE/logo.png') }}" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -14,7 +14,7 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <img class="navbar-brand" id="logo" src="ASSETS/IMAGE/logo.png" height="50px"></img>
+        <img class="navbar-brand" id="logo" src="{{ url_for('static', filename='IMAGE/logo.png') }}" height="50px"></img>
       </div>
       <div class="nav navbar-nav" align="right">
         <div class="container">
@@ -47,18 +47,14 @@
     <button class="btn btn-primary" id="problem_submit">Submit</button>
     <br> <br>
     <div class="container container-fluid" id="problem">
-      <object data="ASSETS/1000.pdf" type="application/pdf" style="min-height:100vh;width:100%">
+      <object data="{{problemlink}}" type="application/pdf" style="min-height:100vh;width:100%">
         <p>It appears you don't have a PDF plugin for this browser.
-          No biggie... you can <a href="ASSETS/1000.pdf">click here to
+          No biggie... you can <a href="{{problemlink}}">click here to
           download the PDF file.</a></p>
       </object>
     </div>
   </div>
   <!-- Midbody end -->
 </body>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
-<script type="text/javascript" src="ASSETS/JS/auth.js"></script>
-<script type="text/javascript" src="ASSETS/JS/nav.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/nav.js') }}"></script>
 </html>

@@ -1,38 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{Title}</title>
-  <link rel="icon" type="image/png" href="ASSETS/IMAGE/logo.png" />
+  <title>{{title}}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='IMAGE/logo.png') }}" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style type="text/css">.hide{visibility: hidden;}</style>
 </head>
 <body>
   <!-- Navigation start -->
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <img class="navbar-brand" id="logo" src="ASSETS/IMAGE/logo.png" height="50px"></img>
+        <img class="navbar-brand" id="logo" src="{{ url_for('static', filename='IMAGE/logo.png') }}" height="50px"></img>
       </div>
       <div class="nav navbar-nav" align="right">
         <div class="container">
         <span > <button class="btn btn-primary" id="navbtn_practice">Practice</button> </span>
         <span> <button class="btn btn-primary" id="navbtn_profile">Profile</button> </span>
-        <span> <button class="btn btn-primary" id="navbtn_signup">Sign up</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_signin">Sign in</button> </span>
       </div>
     </div>
   </nav>
   <!-- Navigation end -->
   <!-- Midbody start -->
   <div class="container">
-    <h3>Sign In</h3><br>
+    <h3>Sign Up</h3><br>
     <form>
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="name" type="text" class="form-control" name="name" placeholder="Full Name">
+      </div>
+
+      <br>
+
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
         <input id="email" type="text" class="form-control" name="user" placeholder="Email">
+      </div>
+
+      <br>
+
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="inst" type="text" class="form-control" name="user" placeholder="Instritution">
       </div>
 
       <br>
@@ -41,14 +54,21 @@
         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
         <input id="pass" type="password" class="form-control" name="password" placeholder="Password">
       </div>
+
+      <br>
+      
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="conpass" type="password" class="form-control" name="password" placeholder="Confirm Password">
+      </div>
     </form>
     <br>
-    <button class="btn btn-primary" id="signin">Sign in</button>
-    <button class="btn btn-warning" id="forgot_pass">Forgot password</button>
+    <button class="btn btn-primary" id="signup">Sign up</button>
     <br><br>
     <div class="alert alert-warning alert-dismissible hide" id="alert">
       <strong id="alerttext"></strong>
     </div>
+    <br>
   </div>
   <!-- Midbody end -->
   <!-- Trigger the modal with a button -->
@@ -62,23 +82,19 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">{{TITLE}}</h4>
+          <h4 class="modal-title">{{title}}</h4>
         </div>
         <div class="modal-body">
-          <p>You have been sent an email. Please check.</p>
+          <p>Please verify your email and sign in.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="close" onclick="onnojaygay()">Close</button>
         </div>
       </div>
 
     </div>
   </div>
 </body>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
-<script type="text/javascript" src="ASSETS/JS/auth.js"></script>
-<script type="text/javascript" src="ASSETS/JS/nav.js"></script>
-<script type="text/javascript" src="ASSETS/JS/signin.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/nav.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/signup.js') }}"></script>
 </html>

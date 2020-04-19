@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{title}}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='IMAGE/logo.png') }}" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <!-- Navigation start -->
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <img class="navbar-brand" id="logo" src="{{ url_for('static', filename='IMAGE/logo.png') }}" height="50px"></img>
+      </div>
+      <div class="nav navbar-nav" align="right">
+        <div class="container">
+        <span > <button class="btn btn-primary" id="navbtn_practice">Practice</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_profile">Profile</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_signout">Sign out</button> </span>
+      </div>
+    </div>
+  </nav>
+  <!-- Navigation end -->
+  <!-- Midbody start -->
+  <h1 align="center">Success</h1>
+</body>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/nav.js') }}"></script>
+</html>

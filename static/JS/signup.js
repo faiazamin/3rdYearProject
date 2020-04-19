@@ -41,19 +41,22 @@ function signup(email, pass, name, inst){
 		instritution: inst
 	}
 	console.log(data)
-	/*fetch('/signup', {
-    method: 'POST',
-    body: data
-  })
-  .then(response => console.log(response))
-  .catch(error => {
-    console.error(error)
-  })*/
   $.post("/signup", data, response => {
-  	console.log(response)
+  	console.log(response);
+  	if(response.Result == "success") {
+  		window.location = response.Location;
+  		success();
+  	}
+  	else {
+  		showAlert(response.Message);
+  	}
   });
 }
 
 function success(){
 	document.getElementById("modalactivate").click();
+}
+
+function onnojaygay(){
+	window.location = "/signin";
 }

@@ -39,8 +39,7 @@ if(nav_signin !== null){
 
 if(nav_signout !== null){
 	nav_signout.addEventListener("click", noReturn => {
-		signOut();
-		window.location = "/index"  ;
+		window.location = "/signout"  ;
 	});
 }
 
