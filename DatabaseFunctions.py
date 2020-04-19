@@ -77,6 +77,7 @@ def getNameAgainstEmail(email):
 
 # will change the verdict for submissionid
 # returns nothing
+# increment the solved field value by 1 for that problem if verdict is 'Accepted'
 
 def changeVerdict(submissionid, verdict):
     conn = sqlite3.connect('judge.db')
@@ -84,12 +85,18 @@ def changeVerdict(submissionid, verdict):
 
     parameter = (verdict, submissionid,)
     cursor.execute('UPDATE submission SET verdict = ? WHERE submissionid = ?', parameter)
+    if verdict == 'Accepted':
+        parameter = (submissionid,)
+        cursor.execute('SELECT problemid FROM submission WHERE submissionid = ?', parameter)
+        problemid = cursor.fetchone()
+        updateSolved(problemid[0])
     conn.commit()
     conn.close()
 
 # will create new entry for email and problemid
 # verdict will be "Not Judged Yet"
 # will return the submissionid of the new entry
+# increment the tried field value by 1 for that problem
 
 def newSubmission(email, problemid):
     conn = sqlite3.connect('judge.db')
@@ -100,6 +107,7 @@ def newSubmission(email, problemid):
     conn.commit()
     cursor.execute('SELECT submissionid FROM submission WHERE verdict=? AND problemid=? AND email=?', parameter)
     rtnMessage = cursor.fetchone()
+    updateTried(problemid)
     conn.commit()
     conn.close()
     return rtnMessage[0]
@@ -201,7 +209,7 @@ def updateSolved(problemid):
 
 
 # This function returns the solved field value for a particular problem
-def getSolved(problemid):
+def getSolvedCount(problemid):
     conn = sqlite3.connect('judge.db')
     cursor = conn.cursor()
 
@@ -213,7 +221,7 @@ def getSolved(problemid):
 
 
 # This function returns the tried field value for a particular problem
-def getTried(problemid):
+def getTriedCount(problemid):
     conn = sqlite3.connect('judge.db')
     cursor = conn.cursor()
 
