@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, make_response, redirect, abort
-from faiaz import signup, signin, userData, all_problem
+from DatabaseFunctions import *
 import random, string
 
 app = Flask(__name__)
