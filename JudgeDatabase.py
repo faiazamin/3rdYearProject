@@ -18,7 +18,9 @@ CURSOR.execute('''CREATE TABLE problems (
     name TEXT NOT NULL ,
     tag TEXT NOT NULL,
     solved INTEGER DEFAULT 0 NOT NULL,
-    tried INTEGER DEFAULT 0 NOT NULL
+    tried INTEGER DEFAULT 0 NOT NULL,
+    timelimit INTEGER NOT NULL,
+    memorylimit INTEGER NOT NULL
 )
 ''')
 

@@ -4,8 +4,6 @@
 import sqlite3
 
 
-
-
 # will check if the email is not already in the database
 # if in the database then returns None
 # if valid email then makes new entry at the database for it having isverified field false
@@ -20,7 +18,7 @@ def signup(name, email, institution, password):
     checkRtn = cursor.fetchone()
     if checkRtn == None:
         insertValues = (name, email, institution, password,)
-        cursor.execute('INSERT INTO user VALUES (?,?,?,?)', insertValues)
+        cursor.execute('INSERT INTO user (name, email, institution, password) VALUES (?,?,?,?)', insertValues)
         conn.commit()
         conn.close()
         return email
@@ -61,6 +59,7 @@ def verifyUser(email):
     conn.commit()
     conn.close()
 
+
 # will return the {name} for an email
 
 def getNameAgainstEmail(email):
@@ -93,6 +92,7 @@ def changeVerdict(submissionid, verdict):
     conn.commit()
     conn.close()
 
+
 # will create new entry for email and problemid
 # verdict will be "Not Judged Yet"
 # will return the submissionid of the new entry
@@ -103,7 +103,7 @@ def newSubmission(email, problemid):
     cursor = conn.cursor()
 
     parameter = ("Not Judged Yet", problemid, email,)
-    cursor.execute('INSERT INTO submission VALUES (?,?,?)', parameter)
+    cursor.execute('INSERT INTO submission (verdict,problemid,email) VALUES (?,?,?)', parameter)
     conn.commit()
     cursor.execute('SELECT submissionid FROM submission WHERE verdict=? AND problemid=? AND email=?', parameter)
     rtnMessage = cursor.fetchone()
@@ -170,7 +170,8 @@ def all_problem(email):
     parameter = (email,)
     arrayDictionary = []
     cursor.execute('SELECT problems.problemid, problems.name, problems.tag, problems.solved FROM problems WHERE '
-                   'problemid = (SELECT problemid FROM submission WHERE email = ? ) ', parameter)
+                   'problems.problemid  IN (SELECT submission.problemid FROM submission WHERE submission.email = ? ) ',
+                   parameter)
     count = 1
     rtnMessage = cursor.fetchall()
     conn.commit()
@@ -196,6 +197,7 @@ def updateTried(problemid):
     cursor.execute('UPDATE problems SET tried = tried + 1 WHERE problemid = ?', parameter)
     conn.commit()
     conn.close()
+
 
 # This function increment the solved field value by 1 for a particular problem
 def updateSolved(problemid):
@@ -230,3 +232,7 @@ def getTriedCount(problemid):
     conn.commit()
     conn.close()
     return cursor.fetchone()
+
+
+#newSubmission("a@g.com", "1000")
+#print(all_problem("a@g.com"))
