@@ -19,7 +19,7 @@
       <div class="nav navbar-nav" align="right">
         <div class="container">
         <span > <button class="btn btn-primary" id="navbtn_practice">Practice</button> </span>
-        <span> <button class="btn btn-primary" id="navbtn_profile">Profile</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_{{profile}}">{{profile}}</button> </span>
         <span> <button class="btn btn-primary" id="navbtn_signout">Sign out</button> </span>
       </div>
     </div>
@@ -38,7 +38,7 @@
       </tr>
       <tr>
         <td>Instritution</td>
-        <td id="inst" class="gupon">{{data.instritution}}</td>
+        <td id="inst" class="gupon">{{data.institution}}</td>
       </tr>
       <tr>
         <td>Level</td>
@@ -46,7 +46,7 @@
       </tr>
       <tr>
         <td>Solve</td>
-        <td id="solve" class="gupon">{{data.solve}}</td>
+        <td id="solve" class="gupon">{{data.solved}}</td>
       </tr>
       <tr>
         <td>Tried</td>
@@ -64,29 +64,6 @@
     <a href="">Click for more information.</a>
   </div>
   <!-- Footer end -->
-  <!-- Trigger the modal with a button -->
-  <button type="button" style="visibility:hidden;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="modalactivate">Open Modal</button>
-
-  <!-- Modal -->
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-sm">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">{{title}}</h4>
-        </div>
-        <div class="modal-body">
-          <p>You have been sent an email. Please check.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
 </body>
 <script type="text/javascript" src="{{ url_for('static', filename='JS/nav.js') }}"></script>
 </html>

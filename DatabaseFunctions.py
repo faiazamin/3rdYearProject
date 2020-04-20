@@ -19,8 +19,8 @@ def signup(name, email, institution, password):
     cursor.execute('SELECT email FROM user WHERE email=?', checkmail)
     checkRtn = cursor.fetchone()
     if checkRtn == None:
-        insertValues = (name, email, institution, password,)
-        cursor.execute('INSERT INTO user VALUES (?,?,?,?)', insertValues)
+        insertValues = (name, email, institution, password, 0,)
+        cursor.execute('INSERT INTO user VALUES (?,?,?,?,?)', insertValues)
         conn.commit()
         conn.close()
         return email
@@ -43,10 +43,9 @@ def signin(email, password):
     rtnMessage = cursor.fetchone()
     conn.commit()
     conn.close()
-    if rtnMessage == 1:
-        return email
-    else:
+    if(rtnMessage == None or rtnMessage[0] == 0):
         return None
+    return email
 
 
 # makes isVerified field True
@@ -55,7 +54,6 @@ def signin(email, password):
 def verifyUser(email):
     conn = sqlite3.connect('judge.db')
     cursor = conn.cursor()
-
     parameter = (email,)
     cursor.execute('UPDATE user SET isverified = 1 WHERE email = ?', parameter)
     conn.commit()
@@ -169,12 +167,14 @@ def all_problem(email):
 
     parameter = (email,)
     arrayDictionary = []
-    cursor.execute('SELECT problems.problemid, problems.name, problems.tag, problems.solved FROM problems WHERE '
-                   'problemid = (SELECT problemid FROM submission WHERE email = ? ) ', parameter)
+    #cursor.execute('SELECT problems.problemid, problems.name, problems.tag, problems.solved FROM problems WHERE '
+    #                'problemid = (SELECT problemid FROM submission WHERE email = ? ) ', parameter)
+    cursor.execute('SELECT * from problems')
     count = 1
     rtnMessage = cursor.fetchall()
     conn.commit()
     conn.close()
+    print(rtnMessage)
     for row in rtnMessage:
         if row[3] > 0:
             arrayDictionary.append(
@@ -186,6 +186,16 @@ def all_problem(email):
         ++count
     return arrayDictionary
 
+
+# def all_problem(email):
+#     conn = sqlite3.connect('judge.db')
+#     cursor = conn.cursor()
+#     parameter = (email,)
+#     cursor.execute('SELECT * FROM problems')
+#     rtnMessage = cursor.fetchall()
+#     conn.commit()
+#     conn.close()
+#     print(rtnMessage)
 
 # This function increment the tried field value by 1 for a particular problem
 def updateTried(problemid):

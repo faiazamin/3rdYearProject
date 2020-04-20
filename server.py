@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, url_for, make_response, redirect, abort
 from DatabaseFunctions import *
-import random, string
+from extrathings import *
 
 app = Flask(__name__)
 TITLE = "ROJ"
@@ -15,9 +15,9 @@ TODO:
 '''
 # main page
 
-signin_link_dict = {}
-name_against_email = {}
+signup_link_dict = {} # it must be brought to database of course
 
+temp_code_storage_for_signin = {}
 
 '''
 UNAUTHORIZATION MUST
@@ -28,7 +28,7 @@ def index_page():
 	# checks for authorization
 	email = request.cookies.get('email')
 	# if authorized then go
-	if email != None:
+	if email == None:
 		return render_template('index.html', title=TITLE)
 	# else redirect to practice
 	return redirect(url_for('practice_page'))
@@ -43,7 +43,9 @@ def practice_page():
 	email = request.cookies.get('email')
 	if email == None:
 		return redirect(url_for('index_page'))
-	data = all_problem(email)
+	#data = all_problem(email)
+	data = {}
+	all_problem(email)
 	return render_template('practice.html', title=TITLE, data=data)
 
 
@@ -53,7 +55,6 @@ def practice_page():
 @app.route('/problem/<problemid>')
 def problem_page(problemid):
 	problemlink = url_for('static', filename='PROBLEM/'+problemid+'.pdf')
-	print(problemlink)
 	data = {"problemid" : 1000, "timelimit" : "2", "memorylimit" : "2"}
 	return render_template('problem.html', title=TITLE, problemlink=problemlink, data=data)
 
@@ -71,7 +72,8 @@ def profile_page():
 		return redirect(url_for('index_page'))
 	# authorized will have their data
 	data = userData(email)
-	return render_template('profile.html', title=TITLE, data=data)
+	data = addLevel(data)
+	return render_template('profile.html', title=TITLE, data=data, profile=profileText(request.cookies.get('email')))
 
 # change page
 '''
@@ -107,21 +109,45 @@ def signup_page():
 	if request.method == 'GET':
 		return render_template('signup.html', title=TITLE)
 	# Try to sign up the dude
-	try:
-		name = request.form["name"]
-		email = request.form["email"]
-		instritution = request.form["instritution"]
-		password = request.form["pass"]
-		signuptry = signup(name, email, instritution, password)
-		if signuptry == None:
-			return {"Result" : "error", "Message" : "Login failed."}		
-		ranstr = randomString(20)
-		signin_link_dict[ranstr] = email
-		name_against_email[email] = name
-		return {"Result" : "success", "Location" : "/profile/newsignin/" + ranstr}
-	except:
-		return "SORRY"
+	# try:
+	name = request.form["name"]
+	email = request.form["email"]
+	instritution = request.form["instritution"]
+	password = request.form["pass"]
+	signuptry = signup(name, email, instritution, password)
+	if signuptry == None:
+		return {"Result" : "error", "Message" : "Signup failed."}		
+	ranstr = randomString(20)
+	signup_link_dict[ranstr] = email
+	return {"Result" : "success", "Location" : "/newsignup/" + ranstr}
+	# except:
+	return {"Result" : "error", "Message" : "Signup failed."}	
 
+# UNAUTHORIZATION MUST
+@app.route('/signin', methods=["GET", "POST"])
+def signin_page():
+	if(request.cookies.get('email') != None):
+		return redirect('practice')
+	if request.method == 'GET':
+		return render_template('signin.html', title=TITLE)
+	email = request.form["email"]
+	password = request.form['pass']
+	signintry = signin(email, password)
+	if signintry == None:
+		return {"Result" : "error", "Message" : "Signin Failed"}
+	ranstr = randomString(19)
+	temp_code_storage_for_signin[ranstr] = email;
+	return {"Result" : "success", "Location" : "/newsignin/" + ranstr}
+
+@app.route('/newsignin/<code>')
+def new_sign_in_page(code):
+	email = temp_code_storage_for_signin.get(code)
+	if email == None:
+		return redirect(url_for('index_page'))
+	temp_code_storage_for_signin.pop(code)
+	resp = make_response(render_template('signinsuccess.html', title=TITLE, name="Rahat"))
+	resp.set_cookie('email', email)
+	return resp
 
 # signout
 @app.route('/signout')
@@ -133,16 +159,16 @@ def signout():
 
 
 # New login page
-@app.route('/profile/newsignin/<code>')
-def new_sign_in_page(code):
+@app.route('/newsignup/<code>')
+def new_sign_up_page(code):
 	# checks if code is valid for email
-	email = signin_link_dict.get(code)
-	print(signin_link_dict)
+	email = signup_link_dict.get(code)
 	# aborts if invalid
 	if email == None:
-		abort(401)
+		redirect(url_for('index_page'))
 	# pops the code out
-	signin_link_dict.pop(code)
+	signup_link_dict.pop(code)
+	verifyUser(email)
 	# sets cookies
 	resp = make_response(render_template('signinsuccess.html', title=TITLE, name="Rahat"))
 	resp.set_cookie('email', email)
@@ -154,15 +180,8 @@ def new_sign_in_page(code):
 # has to check if valid pid
 @app.route('/submit/<problemid>')
 def submit_with_problemid(problemid):
+	return problemid
 	
-
-
-# returns random string of length stringLength
-def randomString(stringLength):
-  letters = string.ascii_letters
-  return ''.join(random.choice(letters) for i in range(stringLength))	
-
-
 
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body onload="goback()">
   <!-- Navigation start -->
   <nav class="navbar navbar-default">
     <div class="container">
@@ -29,4 +29,9 @@
   <h1 align="center">Success</h1>
 </body>
 <script type="text/javascript" src="{{ url_for('static', filename='JS/nav.js') }}"></script>
+<script type="text/javascript">
+  function goback(){
+    window.location = "/";
+  }
+</script>
 </html>

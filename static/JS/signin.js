@@ -41,9 +41,17 @@ function forgotPassSuccess(){
 }
 
 function signin(email, pass){
-	firebase.auth().signInWithEmailAndPassword(email, pass).then(noReturn => {
-		window.location = "practice.html" + extend();
-	}).catch(error => {
-		showAlert(error.message);
-	});
+	data = {
+		email: email,
+		pass: pass
+	}
+  $.post("/signin", data, response => {
+  	if(response.Result == "success") {
+  		window.location = response.Location;
+  		success();
+  	}
+  	else {
+  		showAlert(response.Message);
+  	}
+  });
 }

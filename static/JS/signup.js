@@ -40,7 +40,6 @@ function signup(email, pass, name, inst){
 		name: name,
 		instritution: inst
 	}
-	console.log(data)
   $.post("/signup", data, response => {
   	console.log(response);
   	if(response.Result == "success") {
