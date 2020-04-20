@@ -107,7 +107,8 @@ def newSubmission(email, problemid):
     conn.commit()
     cursor.execute('SELECT submissionid FROM submission WHERE verdict=? AND problemid=? AND email=?', parameter)
     rtnMessage = cursor.fetchone()
-    updateTried(problemid)
+    parameter = (problemid,)
+    cursor.execute('UPDATE problems SET tried = tried + 1 WHERE problemid = ?', parameter)
     conn.commit()
     conn.close()
     return rtnMessage[0]
@@ -147,16 +148,18 @@ def getSubmission(email, count=False):
     arrayDictionary = []
     cursor.execute('SELECT submissionid, problemid, verdict FROM submission WHERE email=?', parameter)
     conn.commit()
-    conn.close()
+
     if count:
         rtnMessage = cursor.fetchmany(30)
         for row in rtnMessage:
             arrayDictionary.append({"submissionid": row[0], "problemid": row[1], "verdict": row[2]})
+        conn.close()
         return arrayDictionary
     else:
         rtnMessage = cursor.fetchall()
         for row in rtnMessage:
             arrayDictionary.append({"submissionid": row[0], "problemid": row[1], "verdict": row[2]})
+        conn.close()
         return arrayDictionary
 
 
@@ -175,7 +178,7 @@ def all_problem(email):
     count = 1
     rtnMessage = cursor.fetchall()
     conn.commit()
-    conn.close()
+
     for row in rtnMessage:
         if row[3] > 0:
             arrayDictionary.append(
@@ -185,6 +188,7 @@ def all_problem(email):
                 {"number": count, "problemid": row[0], "name": row[1], "tag": row[2], "solved": "FALSE"})
 
         ++count
+    conn.close()
     return arrayDictionary
 
 
@@ -234,5 +238,51 @@ def getTriedCount(problemid):
     return cursor.fetchone()
 
 
-#newSubmission("a@g.com", "1000")
-#print(all_problem("a@g.com"))
+# This function returns problemid for AC field value for a particular email
+def getSolvedid(email):
+    conn = sqlite3.connect('judge.db')
+    cursor = conn.cursor()
+
+    parameter = (email, 'Accepted')
+    cursor.execute('SELECT DISTINCT problemid FROM submission WHERE email = ? AND verdict = ?', parameter)
+    conn.commit()
+
+    rtnMessage = cursor.fetchall();
+    arrayDictionary = []
+    count = 1
+    for row in rtnMessage:
+        arrayDictionary.append(
+            {"number": count, "problemid": row[0]})
+
+        ++count
+    conn.close()
+    return arrayDictionary
+
+
+# This function returns problemid for tried field value for a particular email
+def getTriedid(email):
+    conn = sqlite3.connect('judge.db')
+    cursor = conn.cursor()
+
+    parameter = (email, 'Accepted')
+    cursor.execute('SELECT DISTINCT problemid FROM submission WHERE email = ? AND verdict != ?', parameter)
+    conn.commit()
+
+    rtnMessage = cursor.fetchall();
+    arrayDictionary = []
+    count = 1
+    for row in rtnMessage:
+        arrayDictionary.append(
+            {"number": count, "problemid": row[0]})
+
+        ++count
+    conn.close()
+    return arrayDictionary
+
+
+newSubmission("a@g.com", "1000")
+newSubmission("l@g.com", "1000")
+newSubmission("l@g.com", "1000")
+print(all_problem("a@g.com"))
+print(getSolvedid("a@g.com"))
+print(getTriedid("a@g.com"))
