@@ -43,10 +43,7 @@ def practice_page():
 	email = request.cookies.get('email')
 	if email == None:
 		return redirect(url_for('index_page'))
-	#data = all_problem(email)
-	data = {}
-	all_problem(email)
-	return render_template('practice.html', title=TITLE, data=data)
+	return render_template('practice.html', title=TITLE, data=all_problem(email))
 
 
 # problem page
@@ -55,8 +52,7 @@ def practice_page():
 @app.route('/problem/<problemid>')
 def problem_page(problemid):
 	problemlink = url_for('static', filename='PROBLEM/'+problemid+'.pdf')
-	data = {"problemid" : 1000, "timelimit" : "2", "memorylimit" : "2"}
-	return render_template('problem.html', title=TITLE, problemlink=problemlink, data=data)
+	return render_template('problem.html', title=TITLE, problemlink=problemlink, problemid=problemid)
 
 # profile page
 '''
@@ -173,6 +169,15 @@ def new_sign_up_page(code):
 	resp = make_response(render_template('signinsuccess.html', title=TITLE, name="Rahat"))
 	resp.set_cookie('email', email)
 	return resp
+
+@app.route('/submit')
+def submit_page():
+	if request.cookies.get('email') == None:
+		return redirect(url_for('index_page'))
+	problemid = request.args.get('problem')
+	if problemid == None:
+		return 'fuck'
+	return problemid
 
 
 # submit with problemid

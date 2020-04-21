@@ -27,22 +27,31 @@
   <!-- Navigation end -->
   <!-- Midbody start -->
   <div class="container">
-    <table class="table">
-      <thead>
+    <table class="table" style="text-align: center;">
         <tr>
-          <th></th>
-          <th>Problem ID</th>
-          <th>Problem Name</th>
-          <th>Tag</th>
+          <td>&nbsp;</td>
+          <td><b>ID</b></td>
+          <td><b>NAME</b></td>
+          <td><b>STATUS</b></td>
+          <td><b>TAG</b></td>
+          <td><b>SOLVED / TRIED</b></td>
         </tr>
-      </thead>
-      <tbody>
         {% for item in data %}
         <tr>
           <td>{{item.number}}</td>
           <td><a class="problemid" href="{{url_for('problem_page', problemid=item.problemid)}}">{{item.problemid}}</a></td>
           <td><a class="problemname"href="{{url_for('problem_page', problemid=item.problemid)}}">{{item.name}}</a></td>
           <td>{{item.tag}}</td>
+          <td>
+            {% if item.has_solved == 2 %}
+              ✔️
+            {% elif item.has_solved == 1 %}
+              ❌
+            {% else %}
+              &nbsp;
+            {% endif %}
+          </td>
+          <td>{{item.solved}} / {{item.tried}}</td>
         </tr>
         {% endfor %}
       </tbody>

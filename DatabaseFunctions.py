@@ -101,7 +101,7 @@ def newSubmission(email, problemid):
     cursor = conn.cursor()
 
     parameter = ("Not Judged Yet", problemid, email,)
-    cursor.execute('INSERT INTO submission VALUES (?,?,?)', parameter)
+    cursor.execute('INSERT INTO submission (verdict,problemid,email) VALUES (?,?,?)', parameter)
     conn.commit()
     cursor.execute('SELECT submissionid FROM submission WHERE verdict=? AND problemid=? AND email=?', parameter)
     rtnMessage = cursor.fetchone()
@@ -164,27 +164,49 @@ def getSubmission(email, count=False):
 def all_problem(email):
     conn = sqlite3.connect('judge.db')
     cursor = conn.cursor()
-
     parameter = (email,)
     arrayDictionary = []
-    #cursor.execute('SELECT problems.problemid, problems.name, problems.tag, problems.solved FROM problems WHERE '
-    #                'problemid = (SELECT problemid FROM submission WHERE email = ? ) ', parameter)
-    cursor.execute('SELECT * from problems')
+    cursor.execute('SELECT * FROM problems')
     count = 1
-    rtnMessage = cursor.fetchall()
+    rtnMessage1 = cursor.fetchall()
+    cursor.execute('SELECT problemid, verdict FROM submission WHERE email=?', parameter)
+    rtnMessage2 = cursor.fetchall()
+    cp_bro = {}
+    for item in rtnMessage2:
+        current = cp_bro.get(item[0])
+        if current == None:
+            if item[1] == 'Accepted':
+                cp_bro[item[0]] = 2
+            else:
+                cp_bro[item[0]] = 1
+        elif current == 2:
+            continue
+        else:
+            if item[1] == 'Accepted':
+                cp_bro[item[0]] = 2
     conn.commit()
     conn.close()
-    print(rtnMessage)
-    for row in rtnMessage:
-        if row[3] > 0:
-            arrayDictionary.append(
-                {"number": count, "problemid": row[0], "name": row[1], "tag": row[2], "solved": "TRUE"})
+    for row in rtnMessage1:
+        haha = {"number": count, "problemid": row[0], "name": row[1], "tag": row[2], "solved": row[3], "tried" : row[4], "timelimit" : row[5], "memorylimit" : row[6]}
+        if cp_bro.get(row[0]) == 2:
+            haha["has_solved"] = 2
+        elif cp_bro.get(row[0]) == 1:
+            haha["has_solved"] = 1
         else:
-            arrayDictionary.append(
-                {"number": count, "problemid": row[0], "name": row[1], "tag": row[2], "solved": "FALSE"})
-
-        ++count
+            haha["has_solved"] = 0
+        count += 1
+        arrayDictionary.append(haha)
     return arrayDictionary
+    # for row in rtnMessage:
+    #     if row[3] > 0:
+    #         arrayDictionary.append(
+    #             {"number": count, "problemid": row[0], "name": row[1], "tag": row[2], "solved": "TRUE"})
+    #     else:
+    #         arrayDictionary.append(
+    #             {"number": count, "problemid": row[0], "name": row[1], "tag": row[2], "solved": "FALSE"})
+
+    #     ++count
+    # return arrayDictionary
 
 
 # def all_problem(email):
