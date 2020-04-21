@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, url_for, make_response, redirect, abort
 from DatabaseFunctions import *
 from extrathings import *
+from ProblemManager import *
 
 app = Flask(__name__)
 TITLE = "ROJ"
+
+all_tests = {}
 
 '''
 TODO:
@@ -190,4 +193,6 @@ def submit_with_problemid(problemid):
 
 
 if __name__ == "__main__":
+	global all_tests
+	all_tests = get_tests()
 	app.run()

@@ -12,7 +12,7 @@ import sqlite3
 # returns email if everything is done perfectly
 
 def signup(name, email, institution, password):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     checkmail = (email,)
@@ -35,7 +35,7 @@ def signup(name, email, institution, password):
 # else returns None
 
 def signin(email, password):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     parameter = (email, password,)
@@ -52,7 +52,7 @@ def signin(email, password):
 # returns nothing
 
 def verifyUser(email):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
     parameter = (email,)
     cursor.execute('UPDATE user SET isverified = 1 WHERE email = ?', parameter)
@@ -62,7 +62,7 @@ def verifyUser(email):
 # will return the {name} for an email
 
 def getNameAgainstEmail(email):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     parameter = (email,)
@@ -78,7 +78,7 @@ def getNameAgainstEmail(email):
 # increment the solved field value by 1 for that problem if verdict is 'Accepted'
 
 def changeVerdict(submissionid, verdict):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     parameter = (verdict, submissionid,)
@@ -97,7 +97,7 @@ def changeVerdict(submissionid, verdict):
 # increment the tried field value by 1 for that problem
 
 def newSubmission(email, problemid):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     parameter = ("Not Judged Yet", problemid, email,)
@@ -115,7 +115,7 @@ def newSubmission(email, problemid):
 # "instritution" : "Univerisity of Dhaka", "solve" : "2", "tried" : "2"}
 
 def userData(email):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     parameter = (email,)
@@ -138,7 +138,7 @@ def userData(email):
 # will return like an array of dictionary of course
 
 def getSubmission(email, count=False):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     parameter = (email,)
@@ -162,7 +162,7 @@ def getSubmission(email, count=False):
 # [{"number" : "1", "problemid" : "1000", "name" : "Libir's Wisdom", "tag" : "Beginner", "solved" : }]
 
 def all_problem(email):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
     parameter = (email,)
     arrayDictionary = []
@@ -210,7 +210,7 @@ def all_problem(email):
 
 
 # def all_problem(email):
-#     conn = sqlite3.connect('judge.db')
+#     conn = sqlite3.connect('database/judge.db')
 #     cursor = conn.cursor()
 #     parameter = (email,)
 #     cursor.execute('SELECT * FROM problems')
@@ -221,7 +221,7 @@ def all_problem(email):
 
 # This function increment the tried field value by 1 for a particular problem
 def updateTried(problemid):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     parameter = (problemid,)
@@ -231,7 +231,7 @@ def updateTried(problemid):
 
 # This function increment the solved field value by 1 for a particular problem
 def updateSolved(problemid):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     parameter = (problemid,)
@@ -242,7 +242,7 @@ def updateSolved(problemid):
 
 # This function returns the solved field value for a particular problem
 def getSolvedCount(problemid):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     parameter = (problemid,)
@@ -254,7 +254,7 @@ def getSolvedCount(problemid):
 
 # This function returns the tried field value for a particular problem
 def getTriedCount(problemid):
-    conn = sqlite3.connect('judge.db')
+    conn = sqlite3.connect('database/judge.db')
     cursor = conn.cursor()
 
     parameter = (problemid,)

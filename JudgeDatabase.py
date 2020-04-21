@@ -2,7 +2,7 @@
 def initiateDatabase():
     import sqlite3
 
-    CONNECTION = sqlite3.connect('judge.db')
+    CONNECTION = sqlite3.connect('database/judge.db')
 
     CURSOR = CONNECTION.cursor()
 
