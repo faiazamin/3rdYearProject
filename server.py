@@ -2,30 +2,25 @@ from flask import Flask, render_template, request, url_for, make_response, redir
 from DatabaseFunctions import *
 from extrathings import *
 from ProblemManager import *
+import threading
+from MailVerify import *
 
 app = Flask(__name__)
 TITLE = "ROJ"
-
-all_tests = {}
-
-'''
-TODO:
-1. complete all the htmls
-2. Database connectivity
-3. OJ checking system
-4. Task Queue
-5. change {{profile}} for authorized connections
-'''
-# main page
-
-signup_link_dict = {} # it must be brought to database of course
-
+ALL_TESTS = {}
 temp_code_storage_for_signin = {}
 
-'''
-UNAUTHORIZATION MUST
-if Authorized return practice page
-'''
+
+# Checkout here
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # if you want, you can use other mail server. But you need to configure
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'i0wont0forget0this0ever@gmail.com'
+app.config['MAIL_PASSWORD'] = 'amaderoj#1'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
+
 @app.route('/')
 def index_page():
 	# checks for authorization
@@ -37,31 +32,19 @@ def index_page():
 	return redirect(url_for('practice_page'))
 
 
-'''
-AUTHORIZATION MUST
-Store all problem data 
-'''
 @app.route('/practice')
 def practice_page():
 	email = request.cookies.get('email')
 	if email == None:
 		return redirect(url_for('index_page'))
-	return render_template('practice.html', title=TITLE, data=all_problem(email))
+	return render_template('practice.html', title=TITLE, data=all_problem(email), profile=profileText(request.cookies.get('email')))
 
 
-# problem page
-# authorized first
-# has to check if problemid exists 
 @app.route('/problem/<problemid>')
 def problem_page(problemid):
 	problemlink = url_for('static', filename='PROBLEM/'+problemid+'.pdf')
-	return render_template('problem.html', title=TITLE, problemlink=problemlink, problemid=problemid)
+	return render_template('problem.html', title=TITLE, problemlink=problemlink, problemid=problemid, profile=profileText(request.cookies.get('email')))
 
-# profile page
-'''
-AUTHORIZATION MUST
-Return data based on Cookie email
-'''
 @app.route('/profile')
 def profile_page():
 	# checks cookies for authorization
@@ -74,29 +57,16 @@ def profile_page():
 	data = addLevel(data)
 	return render_template('profile.html', title=TITLE, data=data, profile=profileText(request.cookies.get('email')))
 
-# change page
-'''
-AUTHORIZED MUST
-'''
+
 @app.route('/change')
 def change_page():
 	return 'change'
 
-# submission page
-'''
-AUTHORIZED MUST
-'''
-@app.route('/sumbission')
+
+@app.route('/submission')
 def submission_page():
 	return 'sumbission'
 
-
-# sign up page
-'''
-Unauthorized must
-GET and POST METHOD
-'''
-# authorization test
 @app.route('/signup', methods=["GET", "POST"])
 def signup_page():
 	# checks cookies for authorization
@@ -115,12 +85,18 @@ def signup_page():
 	password = request.form["pass"]
 	signuptry = signup(name, email, instritution, password)
 	if signuptry == None:
-		return {"Result" : "error", "Message" : "Signup failed."}		
-	ranstr = randomString(20)
-	signup_link_dict[ranstr] = email
-	return {"Result" : "success", "Location" : "/newsignup/" + ranstr}
+		return {"Result" : "error", "Message" : "Signup failed."}	
+	msg = send_mail(email)
+	thread = threading.Thread(target=mailing_matching, args=(mail, msg,))
+	thread.start()
+	return {"Result" : "success"}
 	# except:
 	return {"Result" : "error", "Message" : "Signup failed."}	
+
+def mailing_matching(mail, msg):
+	with app.app_context():
+		mail.send(msg)
+	return 'fuck'
 
 # UNAUTHORIZATION MUST
 @app.route('/signin', methods=["GET", "POST"])
@@ -138,6 +114,7 @@ def signin_page():
 	temp_code_storage_for_signin[ranstr] = email;
 	return {"Result" : "success", "Location" : "/newsignin/" + ranstr}
 
+
 @app.route('/newsignin/<code>')
 def new_sign_in_page(code):
 	email = temp_code_storage_for_signin.get(code)
@@ -148,6 +125,7 @@ def new_sign_in_page(code):
 	resp.set_cookie('email', email)
 	return resp
 
+
 # signout
 @app.route('/signout')
 def signout():
@@ -157,35 +135,33 @@ def signout():
 	return resp
 
 
-# New login page
-@app.route('/newsignup/<code>')
-def new_sign_up_page(code):
-	# checks if code is valid for email
-	email = signup_link_dict.get(code)
-	# aborts if invalid
-	if email == None:
-		redirect(url_for('index_page'))
-	# pops the code out
-	signup_link_dict.pop(code)
-	verifyUser(email)
-	# sets cookies
-	resp = make_response(render_template('signinsuccess.html', title=TITLE, name="Rahat"))
-	resp.set_cookie('email', email)
-	return resp
+@app.route('/confirm_email/<token>')
+def confirm_email(token):
+  try:
+    email = SECRET_SERIALIZER.loads(token, salt='email-confirm', max_age=3600)
+    verifyUser(email)
+    resp = make_response(render_template('signinsuccess.html', title=TITLE, name="User"))
+    resp.set_cookie('email', email)
+    return resp
+  except:
+    abort(401)
 
-@app.route('/submit')
+@app.route('/submit', methods=["GET", "POST"])
 def submit_page():
 	if request.cookies.get('email') == None:
 		return redirect(url_for('index_page'))
-	problemid = request.args.get('problem')
-	if problemid == None:
-		return 'fuck'
-	return problemid
+	PID = request.args.get('problem')
+	if request.method == 'GET':	
+		return render_template('submit.html', title=TITLE, problemid=PID, profile=profileText(request.cookies.get('email')))
+	problemid = request.form.get('problemid')
+	language = request.form.get('language')
+	code = request.form.get('code')
+	# if everything not fine
+	# return {"Result" : "error", "Message" : "haha"}
+	# supply the next thing
+	return {"Result" : "success", "Location" : "/submission"}
 
 
-# submit with problemid
-# has to check if authorized
-# has to check if valid pid
 @app.route('/submit/<problemid>')
 def submit_with_problemid(problemid):
 	return problemid
@@ -193,6 +169,6 @@ def submit_with_problemid(problemid):
 
 
 if __name__ == "__main__":
-	global all_tests
-	all_tests = get_tests()
+	global ALL_TESTS
+	ALL_TESTS = get_tests()
 	app.run()

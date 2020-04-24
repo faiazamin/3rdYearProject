@@ -43,7 +43,6 @@ function signup(email, pass, name, inst){
   $.post("/signup", data, response => {
   	console.log(response);
   	if(response.Result == "success") {
-  		window.location = response.Location;
   		success();
   	}
   	else {

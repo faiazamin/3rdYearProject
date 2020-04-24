@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{Title}</title>
-  <link rel="icon" type="image/png" href="ASSETS/IMAGE/logo.png" />
+  <title>{{Title}}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='IMAGE/logo.png') }}" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -14,12 +14,12 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <img class="navbar-brand" id="logo" src="ASSETS/IMAGE/logo.png" height="50px"></img>
+        <img class="navbar-brand" id="logo" src="{{ url_for('static', filename='IMAGE/logo.png') }}" height="50px"></img>
       </div>
       <div class="nav navbar-nav" align="right">
         <div class="container">
         <span > <button class="btn btn-primary" id="navbtn_practice">Practice</button> </span>
-        <span> <button class="btn btn-primary" id="navbtn_profile">Profile</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_profile">{{profile}}</button> </span>
         <span> <button class="btn btn-primary" id="navbtn_signout">Sign out</button> </span>
       </div>
     </div>
@@ -31,7 +31,7 @@
       <tr>
         <td>Problem ID</td>
         <td style="padding: 5px 10px">:</td>
-        <td><input type="text" class="form-control" id="problemid" style="width: 80px;"></td>
+        <td><input type="text" class="form-control" id="problemid" style="width: 80px;" value="{{problemid}}"></td>
       </tr>
       <tr>
         <td>Language</td>
@@ -46,6 +46,7 @@
         </td>
       </tr>
     </table>
+    <br>
     <textarea style="width: 100%; height: 500px;" placeholder="Submit your code here" id="code"></textarea>
     <button class="btn btn-primary" id="submit">Submit</button>
   </div>
@@ -61,7 +62,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">{{TITLE}}</h4>
+          <h4 class="modal-title">{{Title}}</h4>
         </div>
         <div class="modal-body">
           <p>Problem ID, language and code... all are essential. Please check out.</p>
@@ -74,10 +75,6 @@
     </div>
   </div>
 </body>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
-<script type="text/javascript" src="ASSETS/JS/auth.js"></script>
-<script type="text/javascript" src="ASSETS/JS/nav.js"></script>
-<script type="text/javascript" src="ASSETS/JS/submit.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/nav.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/submit.js') }}"></script>
 </html>
