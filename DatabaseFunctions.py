@@ -262,3 +262,6 @@ def getTriedCount(problemid):
     conn.commit()
     conn.close()
     return cursor.fetchone()
+
+def getProblemData(problemid):
+    pass
