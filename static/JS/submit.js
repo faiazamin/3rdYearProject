@@ -19,7 +19,8 @@ function sendCode(problemID, language, code){
 	}
   $.post("/submit", data, response => {
   	if(response.Result == "success") {
-  		window.location = response.Location;
+		  //window.location = response.Location;
+		  console.log(response);
   	}
   	else {
   		alert("Failed");

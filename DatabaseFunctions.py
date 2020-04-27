@@ -263,5 +263,13 @@ def getTriedCount(problemid):
     conn.close()
     return cursor.fetchone()
 
-def getProblemData(problemid):
-    pass
+def get_problem_data(problemid):
+    conn = sqlite3.connect('database/judge.db')
+    cursor = conn.cursor()
+    parameter = (problemid,)
+    cursor.execute('SELECT timelimit, memorylimit FROM problems WHERE problemid = ?', parameter)
+    conn.commit()
+    conn.close()
+    rtnMessage = cursor.fetchone()
+    data = {"time_limit" : int(rtnMessage[0]), "memory_limit" : int(rtnMessage[1])}
+    return data

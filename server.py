@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, url_for, make_response, redirect, abort
 from DatabaseFunctions import *
 from extrathings import *
-from ProblemManager import *
 import threading
 from MailVerify import *
 from Validity import *
+from Checker import *
 
 app = Flask(__name__)
 TITLE = "ROJ"
@@ -13,7 +13,7 @@ temp_code_storage_for_signin = {}
 
 
 # Checkout here
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # if you want, you can use other mail server. But you need to configure
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'i0wont0forget0this0ever@gmail.com'
 app.config['MAIL_PASSWORD'] = 'amaderoj#1'
@@ -64,7 +64,12 @@ def profile_page():
 # incomplete
 @app.route('/change')
 def change_page():
-	return 'change'
+	email = request.cookies.get('email')
+	if email == None:
+		return redirect(url_for('index_page'))
+	if request.method == "GET":
+		data = userData(email)
+		return render_template('change_profile.html', title=TITLE, profile=profileText(request.cookies.get('email')), data=data)
 
 # incomplete
 @app.route('/submission')
@@ -168,6 +173,9 @@ def submit_page():
 	# if everything not fine
 	# return {"Result" : "error", "Message" : "haha"}
 	# supply the next thing
+	res = judge(problemid, language, code)
+	print(res)
+	return res
 	return {"Result" : "success", "Location" : "/submission"}
 
 # incomplete
@@ -178,6 +186,4 @@ def submit_with_problemid(problemid):
 
 
 if __name__ == "__main__":
-	global ALL_TESTS
-	ALL_TESTS = get_tests()
 	app.run()

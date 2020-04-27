@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{Title}}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='IMAGE/logo.png') }}" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>.hide{visibility: hidden;}</style>
+<body>
+  <!-- Navigation start -->
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <img class="navbar-brand" id="logo" src="{{ url_for('static', filename='IMAGE/logo.png') }}" height="50px"></img>
+      </div>
+      <div class="nav navbar-nav" align="right">
+        <div class="container">
+        <span > <button class="btn btn-primary" id="navbtn_practice">Practice</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_profile">{{profile}}</button> </span>
+        <span> <button class="btn btn-primary" id="navbtn_signout">Sign out</button> </span>
+      </div>
+    </div>
+  </nav>
+  <!-- Navigation end -->
+  <div class="container">
+      <h3>Change</h3>
+      <h6>Please write those fields where you want to make change. To apply change you must fill the password field.</h6>
+      <br>
+      <table class="table">
+        <tr>
+            <td>Name</td>
+            <td style="padding: 5px 5px;">:</td>
+            <td><input type="text" class="form-control" id="name" value="{{data.name}}"/></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td style="padding: 5px 5px;">:</td>
+            <td><input type="text" class="form-control" id="email" value="{{data.email}}" disabled/></td>
+        </tr>
+        <tr>
+            <td>Institution</td>
+            <td style="padding: 5px 5px;">:</td>
+            <td><input type="text" class="form-control" id="instr" value="{{data.institution}}"/></td>
+        </tr>
+        
+        <tr>
+            <td>Password*</td>
+            <td style="padding: 5px 5px;">:</td>
+            <td><input type="password" class="form-control" id="pwd"/></td>
+        </tr>
+
+        <tr>
+            <td>New password</td>
+            <td style="padding: 5px 5px;">:</td>
+            <td><input type="password" class="form-control" id="npwd"/></td>
+        </tr>
+
+        <tr>
+            <td>Confirm new password</td>
+            <td style="padding: 5px 5px;">:</td>
+            <td><input type="password" class="form-control" id="cnpwd"/></td>
+        </tr>
+      </table>
+      <br>
+      <button class="btn btn-primary">Apply change</button>
+  </div>
+  <br>
+  <div class="alert alert-warning alert-dismissible" id="alert">
+    <strong id="alerttext"></strong>
+  </div>
+  <br>
+</body>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/nav.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/change_profile.js') }}"></script>
+</html>
