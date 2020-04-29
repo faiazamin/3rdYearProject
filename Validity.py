@@ -24,7 +24,7 @@ def fails_signup_validity(name, email, instrituion, password):
 	# instritution part
 	# # simple check
 	if instritution == "":
-		return "Instritution cannot be email"
+		return "Instritution cannot be empty"
 	# pass check
 	# # pass has to be at least 6 char
 	if len(password) < 6:
